@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Prisa Biztech Solutions – Digital Marketing, AI & IT Solutions, Healthcare Services, Education, and Global Coaching. From Manual to Automated." />
+  <meta name="keywords" content="digital marketing, AI solutions, healthcare IT, education services, NABH, NAAC, personal branding, automation, Tamil Nadu" />
+  <meta property="og:title" content="Prisa Biztech Solutions" />
+  <meta property="og:description" content="Transforming Brands | Empowering Education | Driving Growth" />
+  <meta property="og:type" content="website" />
+  <title>Prisa Biztech Solutions | From Manual to Automated</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <style>
+    /* ===== TOKENS — extracted from reference image ===== */
+    :root {
+      --orange:    #E8600A;
+      --orange2:   #FF7A2A;
+      --orange-dim:#7A3205;
+      --black:     #0A0A0A;
+      --black2:    #111111;
+      --black3:    #1A1A1A;
+      --panel:     #151515;
+      --border:    rgba(232,96,10,0.18);
+      --border2:   rgba(255,255,255,0.07);
+      --white:     #FFFFFF;
+      --off:       #F0EDE8;
+      --muted:     #888888;
+      --muted2:    #555555;
+      --nav-h:     70px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Manrope', sans-serif;
+      font-weight: 400;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ===== CURSOR ===== */
+    #cur-dot {
+      width: 7px; height: 7px;
+      background: var(--orange);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+    }
+    #cur-ring {
+      width: 34px; height: 34px;
+      border: 1.5px solid var(--orange);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: transform .22s cubic-bezier(.17,.67,.38,1.1), width .2s, height .2s;
+      opacity: .55;
+    }
+
+    /* ===== NOISE OVERLAY ===== */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: .025;
+      mix-blend-mode: overlay;
+    }
+
+    /* ===== NAVBAR ===== */
+    #mainNav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      height: var(--nav-h);
+      transition: background .4s, border-bottom .4s;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+    }
+    #mainNav.scrolled {
+      background: rgba(10,10,10,.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); padding: 0 2.5rem; }
+    .brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem; letter-spacing: .12em;
+      color: var(--white); text-decoration: none;
+    }
+    .brand span { color: var(--orange); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+      font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 500;
+      transition: color .25s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--orange);
+      transition: width .3s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--white); }
+    .nav-links a.active::after { width: 100%; }
+    .btn-nav {
+      background: var(--orange);
+      color: var(--white); border: none;
+      font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700;
+      padding: .6rem 1.6rem; border-radius: 100px;
+      text-decoration: none;
+      transition: background .25s, transform .2s;
+      display: inline-block;
+    }
+    .btn-nav:hover { background: var(--orange2); transform: translateY(-2px); color: var(--white); }
+
+    .ham { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+    .ham span { width: 22px; height: 1.5px; background: var(--white); display: block; transition: .3s; }
+
+    #mobileMenu {
+      display: none; position: fixed; top: var(--nav-h); left: 0; width: 100%;
+      background: rgba(10,10,10,.98); backdrop-filter: blur(20px);
+      z-index: 999; padding: 1.5rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+    #mobileMenu.open { display: block; }
+    #mobileMenu a {
+      display: block; padding: .8rem 0;
+      color: rgba(255,255,255,.8); text-decoration: none;
+      font-size: .95rem; letter-spacing: .06em;
+      border-bottom: 1px solid var(--border2);
+      transition: color .25s;
+    }
+    #mobileMenu a:hover { color: var(--orange); }
+
+    /* ===== PAGES ===== */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ===== WAVE LINES BG (like reference image) ===== */
+    .wave-bg {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+    }
+    .wave-bg svg { position: absolute; width: 100%; height: 100%; opacity: .12; }
+
+    /* ===== HERO ===== */
+    #hero {
+      height: 100vh; min-height: 680px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center;
+      background: var(--black);
+    }
+    .hero-glow {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 55% 65% at 75% 55%, rgba(232,96,10,.18) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 50% at 20% 30%, rgba(232,96,10,.07) 0%, transparent 60%);
+    }
+
+    .hero-content { position: relative; z-index: 2; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: rgba(232,96,10,.12);
+      border: 1px solid var(--border);
+      padding: .4rem 1rem; border-radius: 100px;
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 1.8rem;
+      opacity: 0; animation: fadeUp .7s .2s forwards;
+    }
+    .hero-tag::before { content:''; width:6px; height:6px; background:var(--orange); border-radius:50%; }
+
+    .hero-h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 9rem);
+      line-height: .95;
+      letter-spacing: .02em;
+      color: var(--white);
+      opacity: 0; animation: fadeUp .8s .35s forwards;
+    }
+    .hero-h1 .orange { color: var(--orange); }
+    .hero-h1 .stroke {
+      -webkit-text-stroke: 2px var(--orange);
+      color: transparent;
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1rem; color: var(--muted); line-height: 1.7; max-width: 480px;
+      opacity: 0; animation: fadeUp .8s .5s forwards;
+    }
+    .hero-sub strong { color: rgba(255,255,255,.8); }
+
+    .hero-btns {
+      margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp .8s .65s forwards;
+    }
+    .btn-orange {
+      background: var(--orange);
+      color: var(--white); border: none;
+      font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700;
+      padding: 1rem 2.5rem; border-radius: 100px;
+      text-decoration: none;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      display: inline-block;
+      box-shadow: 0 0 30px rgba(232,96,10,.35);
+    }
+    .btn-orange:hover { background: var(--orange2); transform: translateY(-3px); box-shadow: 0 0 50px rgba(232,96,10,.5); color: var(--white); }
+    .btn-ghost {
+      background: transparent; color: var(--white);
+      border: 1px solid rgba(255,255,255,.2);
+      font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600;
+      padding: 1rem 2.5rem; border-radius: 100px;
+      text-decoration: none;
+      transition: border-color .25s, color .25s, transform .2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-3px); }
+
+    /* Pill badges (like the 3 at bottom of reference image) */
+    .hero-pills {
+      margin-top: 3.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp .8s .8s forwards;
+    }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: rgba(255,255,255,.05); border: 1px solid var(--border2);
+      padding: .55rem 1.1rem; border-radius: 100px;
+      font-size: .75rem; color: rgba(255,255,255,.75); font-weight: 500;
+      transition: border-color .25s, color .25s;
+    }
+    .hero-pill i { color: var(--orange); font-size: .9rem; }
+    .hero-pill:hover { border-color: var(--orange); color: var(--white); }
+
+    /* Hero visual right side */
+    .hero-visual {
+      position: relative; z-index: 2;
+      opacity: 0; animation: fadeLeft .9s .4s forwards;
+    }
+    .hero-orb {
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, rgba(232,96,10,.25), rgba(232,96,10,.05) 60%, transparent 80%);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      margin: 0 auto;
+    }
+    .hero-orb::before {
+      content:''; position:absolute; inset:-20px;
+      border-radius:50%; border:1px dashed rgba(232,96,10,.2);
+      animation: spinSlow 20s linear infinite;
+    }
+    .hero-orb::after {
+      content:''; position:absolute; inset:-50px;
+      border-radius:50%; border:1px solid rgba(232,96,10,.08);
+    }
+    @keyframes spinSlow { to { transform: rotate(360deg); } }
+    .orb-center {
+      width: 160px; height: 160px;
+      background: rgba(232,96,10,.1);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem; color: var(--orange);
+      position: relative; z-index: 1;
+      box-shadow: 0 0 60px rgba(232,96,10,.3);
+    }
+    .orb-dot {
+      position: absolute; width: 10px; height: 10px;
+      border-radius: 50%; background: var(--orange);
+      box-shadow: 0 0 10px var(--orange);
+    }
+    .orb-dot-1 { top: 30px; left: 50%; }
+    .orb-dot-2 { bottom: 30px; right: 30%; animation-delay: .5s; }
+    .orb-dot-3 { left: 20px; top: 50%; }
+
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      opacity: 0; animation: fadeUp 1s 1.2s forwards;
+    }
+    .hero-scroll span { font-size: .6rem; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
+    .scroll-line { width: 1px; height: 44px; background: linear-gradient(to bottom, var(--orange), transparent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+    /* Stats strip */
+    .stats-strip {
+      background: var(--black2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 2rem 0;
+    }
+    .stat-box { text-align: center; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem; letter-spacing: .05em;
+      color: var(--orange); line-height: 1;
+    }
+    .stat-lbl { font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin-top: .3rem; }
+
+    /* ===== SECTION COMMONS ===== */
+    section { padding: 7rem 0; position: relative; }
+    .sec-tag {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; color: var(--orange); font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .sec-tag::before { content:''; width: 24px; height: 2px; background: var(--orange); }
+    .sec-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1; letter-spacing: .03em; color: var(--white);
+    }
+    .sec-heading .o { color: var(--orange); }
+    .sec-body { color: var(--muted); font-size: .95rem; line-height: 1.8; max-width: 520px; margin-top: 1rem; }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .rd1 { transition-delay: .08s; } .rd2 { transition-delay: .16s; } .rd3 { transition-delay: .24s; }
+    .rd4 { transition-delay: .32s; } .rd5 { transition-delay: .4s; }
+
+    /* ===== CARDS ===== */
+    .card-o {
+      background: var(--panel);
+      border: 1px solid var(--border2);
+      border-radius: 12px; padding: 2rem;
+      height: 100%;
+      position: relative; overflow: hidden;
+      transition: border-color .35s, transform .35s, box-shadow .35s;
+    }
+    .card-o::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--orange), transparent);
+      transform: scaleX(0); transform-origin: center; transition: transform .4s;
+    }
+    .card-o:hover { border-color: var(--border); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(232,96,10,.12); }
+    .card-o:hover::before { transform: scaleX(1); }
+
+    .card-icon {
+      width: 52px; height: 52px;
+      background: rgba(232,96,10,.1); border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: var(--orange);
+      margin-bottom: 1.4rem;
+      transition: background .3s;
+    }
+    .card-o:hover .card-icon { background: var(--orange); color: var(--white); }
+    .card-num {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem; color: rgba(232,96,10,.05); line-height: 1;
+    }
+    .card-o h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing:.04em; color: var(--white); margin-bottom: .6rem; }
+    .card-o p { font-size: .87rem; color: var(--muted); line-height: 1.75; }
+    .card-tags { margin-top: 1.1rem; display: flex; flex-wrap: wrap; gap: .4rem; }
+    .tag-o {
+      font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
+      border: 1px solid var(--border); color: var(--orange);
+      padding: .22rem .65rem; border-radius: 100px;
+    }
+    .card-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      color: var(--orange); font-size: .78rem; letter-spacing:.08em; text-transform:uppercase; font-weight:600;
+      text-decoration: none; margin-top: 1.4rem; transition: gap .2s;
+    }
+    .card-link:hover { gap: .8rem; color: var(--orange2); }
+
+    /* ===== WHY US ===== */
+    .why-row {
+      border-bottom: 1px solid var(--border2);
+      padding: 1.8rem 0;
+      display: flex; align-items: flex-start; gap: 1.5rem;
+      transition: border-color .3s;
+    }
+    .why-row:last-child { border-bottom: none; }
+    .why-row:hover { border-color: var(--border); }
+    .why-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(232,96,10,.1); border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--orange);
+    }
+    .why-row h5 { font-family:'Bebas Neue',sans-serif; font-size:1.15rem; letter-spacing:.04em; color:var(--white); margin-bottom:.3rem; }
+    .why-row p { font-size:.84rem; color:var(--muted); line-height:1.7; }
+
+    /* ===== IMPACT ===== */
+    .impact-section {
+      background: var(--black2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .impact-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      letter-spacing:.03em; color: var(--orange); line-height:1;
+    }
+    .impact-lbl { font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-top:.4rem; }
+
+    /* ===== CTA BANNER ===== */
+    .cta-banner {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 5rem 3rem; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(232,96,10,.1) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .cta-banner h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,5vw,4rem); letter-spacing:.04em; color:var(--white); position:relative;z-index:1; }
+    .cta-banner h2 span { color:var(--orange); }
+    .cta-banner p { color:var(--muted); max-width:500px; margin:.8rem auto 2.5rem; position:relative;z-index:1; }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--black2); border-top: 1px solid var(--border); padding: 4.5rem 0 2rem; }
+    .footer-brand { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:.1em; color:var(--white); }
+    .footer-brand span { color:var(--orange); }
+    .footer-desc { font-size:.85rem; color:var(--muted); margin-top:.75rem; line-height:1.7; max-width:260px; }
+    .footer-h { font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:var(--orange); font-weight:700; margin-bottom:1.2rem; }
+    .footer-links { list-style:none; }
+    .footer-links li { margin-bottom:.55rem; }
+    .footer-links a { color:var(--muted); text-decoration:none; font-size:.87rem; transition:color .25s; }
+    .footer-links a:hover { color:var(--orange); }
+    .footer-ci { display:flex; gap:.7rem; margin-bottom:.8rem; align-items:flex-start; }
+    .footer-ci i { color:var(--orange); margin-top:.1rem; font-size:.95rem; }
+    .footer-ci span { color:var(--muted); font-size:.87rem; line-height:1.5; }
+    .soc-row { display:flex; gap:.6rem; margin-top:1rem; }
+    .soc-btn {
+      width:36px; height:36px; border:1px solid var(--border2); border-radius:8px;
+      display:flex; align-items:center; justify-content:center;
+      color:var(--muted); font-size:.95rem; text-decoration:none;
+      transition:border-color .25s, color .25s, background .25s;
+    }
+    .soc-btn:hover { border-color:var(--orange); color:var(--white); background:var(--orange); }
+    .footer-div { border-color:var(--border2); margin:2.5rem 0 1.5rem; }
+    .footer-bot { display:flex; justify-content:space-between; flex-wrap:wrap; gap:.5rem; }
+    .footer-bot span { font-size:.75rem; color:var(--muted2); }
+
+    /* ===== CONTACT FORM ===== */
+    .form-wrap { background:var(--panel); border:1px solid var(--border2); border-radius:12px; padding:2.5rem; }
+    .f-label { font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin-bottom:.45rem; display:block; font-weight:600; }
+    .f-ctrl {
+      background: var(--black2) !important;
+      border: 1px solid var(--border2) !important;
+      color: var(--white) !important;
+      border-radius: 8px; padding: .75rem 1rem;
+      font-family: 'Manrope', sans-serif; font-size: .9rem;
+      transition: border-color .25s !important;
+      width: 100%;
+    }
+    .f-ctrl:focus { border-color: var(--orange) !important; box-shadow: 0 0 0 3px rgba(232,96,10,.1) !important; outline: none !important; }
+    .f-ctrl option { background: var(--black2); }
+    textarea.f-ctrl { resize: vertical; }
+    select.f-ctrl { appearance: none; }
+
+    .cinfo-card { background:var(--panel); border:1px solid var(--border2); border-radius:12px; padding:2.5rem; height:100%; }
+    .cinfo-row { display:flex; gap:1rem; margin-bottom:2rem; }
+    .cinfo-ico { width:44px; height:44px; flex-shrink:0; background:rgba(232,96,10,.1); border:1px solid var(--border); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--orange); font-size:1rem; }
+    .cinfo-lbl { font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:var(--orange); font-weight:700; margin-bottom:.3rem; }
+    .cinfo-val { font-size:.88rem; color:var(--muted); }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero { padding: calc(var(--nav-h) + 5rem) 0 5rem; background:var(--black); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 70% 50%, rgba(232,96,10,.1), transparent 65%); pointer-events:none; }
+    .page-hero .sec-heading { font-size: clamp(3rem, 7vw, 6rem); }
+
+    /* ===== EDU CARDS ===== */
+    .edu-card { background:var(--panel); border:1px solid var(--border2); border-radius:12px; padding:2rem; height:100%; transition:border-color .3s, transform .3s; }
+    .edu-card:hover { border-color:var(--border); transform:translateY(-4px); }
+    .edu-card i { font-size:1.5rem; color:var(--orange); margin-bottom:1rem; display:block; }
+    .edu-card h5 { font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:.04em; color:var(--white); margin-bottom:.5rem; }
+    .edu-card p { font-size:.85rem; color:var(--muted); line-height:1.7; }
+
+    /* ===== JOURNEY ===== */
+    .jitem { position:relative; padding-left:2rem; margin-bottom:2.2rem; }
+    .jitem::before { content:''; position:absolute; left:0; top:6px; width:8px; height:8px; background:var(--orange); border-radius:50%; box-shadow:0 0 8px var(--orange); }
+    .jitem::after { content:''; position:absolute; left:3.5px; top:16px; width:1px; height:calc(100% + 1.2rem); background:rgba(232,96,10,.2); }
+    .jitem:last-child::after { display:none; }
+    .jitem h6 { font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; color:var(--orange); font-weight:700; margin-bottom:.3rem; }
+    .jitem p { font-size:.88rem; color:var(--muted); line-height:1.65; }
+
+    /* ===== SERVICE DETAIL ===== */
+    .svc-detail { border-bottom:1px solid var(--border2); padding:5rem 0; }
+    .svc-detail:last-of-type { border-bottom:none; }
+
+    /* ===== SCROLL PROGRESS ===== */
+    #scrollBar { position:fixed; top:0; left:0; height:2px; z-index:2000; background:linear-gradient(90deg,var(--orange),var(--orange2)); width:0; transition:width .1s; }
+
+    /* ===== FAQ ===== */
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+    .faq-item {
+      border-bottom: 1px solid var(--border2);
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border2); }
+    .faq-q {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+      padding: 1.5rem 0;
+      font-family: 'Manrope', sans-serif;
+      font-size: .97rem; font-weight: 600; color: var(--white);
+      text-align: left;
+      transition: color .25s;
+    }
+    .faq-q:hover { color: var(--orange); }
+    .faq-q[aria-expanded="true"] { color: var(--orange); }
+    .faq-icon { flex-shrink: 0; font-size: .85rem; color: var(--orange); transition: transform .3s; }
+    .faq-q[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height .4s cubic-bezier(.22,1,.36,1), padding .3s;
+      padding-bottom: 0;
+    }
+    .faq-a.open { max-height: 300px; padding-bottom: 1.4rem; }
+    .faq-a p { font-size: .88rem; color: var(--muted); line-height: 1.8; margin: 0; }
+
+    /* ===== BACK TO TOP ===== */
+    #backToTop {
+      position: fixed; right: 1.5rem; bottom: 5.5rem; z-index: 900;
+      width: 44px; height: 44px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange); font-size: 1.1rem;
+      text-decoration: none; cursor: pointer;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s, transform .25s, background .25s, box-shadow .25s;
+      box-shadow: 0 4px 20px rgba(0,0,0,.4);
+    }
+    #backToTop.visible { opacity: 1; pointer-events: auto; }
+    #backToTop:hover { background: var(--orange); color: var(--white); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(232,96,10,.4); }
+
+    /* ===== WHATSAPP ===== */
+    #waBtn {
+      position:fixed; right:1.5rem; bottom:2rem; z-index:900;
+      width:52px; height:52px; background:#25D366; color:#fff; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.5rem; text-decoration:none;
+      box-shadow:0 4px 24px rgba(37,211,102,.4);
+      transition:transform .25s, box-shadow .25s;
+      animation:waPop 1.5s 1.5s ease both;
+    }
+    #waBtn:hover { transform:scale(1.1) translateY(-2px); box-shadow:0 8px 32px rgba(37,211,102,.55); color:#fff; }
+    #waBtn::after { content:'Chat with Us'; position:absolute; right:60px; top:50%; transform:translateY(-50%); background:#25D366; color:#fff; font-size:.7rem; letter-spacing:.06em; padding:.35rem .8rem; border-radius:100px; white-space:nowrap; opacity:0; transition:opacity .25s; font-family:'Manrope',sans-serif; }
+    #waBtn:hover::after { opacity:1; }
+    @keyframes waPop { from{transform:scale(0) rotate(-180deg)} to{transform:scale(1) rotate(0)} }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeLeft { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
+
+    /* ===== TOAST ===== */
+    #toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(100px); background:var(--panel); border:1px solid var(--border); color:var(--white); padding:.9rem 2rem; border-radius:100px; font-size:.85rem; z-index:9000; transition:transform .4s cubic-bezier(.22,1,.36,1); display:flex; align-items:center; gap:.75rem; white-space:nowrap; }
+
+    /* ===== AI HEAD CANVAS ===== */
+    #aiHeadWrap {
+      position: relative; width: 100%; max-width: 480px; margin: 0 auto;
+    }
+    #aiCanvas {
+      width: 100% !important; height: auto !important;
+      border-radius: 20px;
+      filter: drop-shadow(0 0 40px rgba(232,96,10,.5));
+      transition: filter .3s;
+    }
+    #aiCanvas:hover { filter: drop-shadow(0 0 70px rgba(232,96,10,.8)); }
+
+    /* Floating data labels around AI head */
+    .ai-label {
+      position: absolute;
+      background: rgba(10,10,10,.85);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      padding: .45rem .9rem;
+      font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700;
+      color: var(--orange);
+      white-space: nowrap;
+      animation: floatLabel 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .ai-label::before { content:''; width:6px; height:6px; background:var(--orange); border-radius:50%; display:inline-block; margin-right:.5rem; box-shadow:0 0 6px var(--orange); }
+    .ai-label-1 { top: 10%; left: -10%; animation-delay: 0s; }
+    .ai-label-2 { top: 35%; right: -12%; animation-delay: .8s; }
+    .ai-label-3 { bottom: 28%; left: -8%; animation-delay: 1.6s; }
+    .ai-label-4 { bottom: 10%; right: -5%; animation-delay: .4s; }
+    @keyframes floatLabel {
+      0%,100% { transform: translateY(0px); }
+      50%      { transform: translateY(-8px); }
+    }
+
+    /* Scanline effect over AI image */
+    #aiHeadWrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 20px;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,.08) 2px,
+        rgba(0,0,0,.08) 4px
+      );
+      pointer-events: none;
+      animation: scanMove 8s linear infinite;
+    }
+    @keyframes scanMove { from { background-position: 0 0; } to { background-position: 0 100px; } }
+
+    /* Glow pulse ring behind head */
+    #aiHeadWrap::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%; height: 70%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,96,10,.22) 0%, transparent 70%);
+      animation: glowPulse 2.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes glowPulse {
+      0%,100% { transform: translate(-50%,-50%) scale(1); opacity:.6; }
+      50%      { transform: translate(-50%,-50%) scale(1.15); opacity:1; }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:768px) {
+      .nav-links, .btn-nav { display:none; }
+      .ham { display:flex; }
+      section { padding:4rem 0; }
+      .cta-banner { padding:3rem 1.5rem; }
+      .ai-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scrollBar"></div>
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<!-- WhatsApp -->
+<a href="https://wa.me/91XXXXXXXXXX" id="waBtn" target="_blank" rel="noopener" aria-label="WhatsApp Chat">
+  <i class="bi bi-whatsapp"></i>
+</a>
+
+<!-- Back to Top -->
+<button id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="bi bi-arrow-up"></i>
+</button>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="mainNav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="brand" href="#" onclick="showPage('home')">PRISA <span>BIZTECH</span></a>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('home')">Home</a></li>
+      <li><a href="#" onclick="showPage('about')">About</a></li>
+      <li><a href="#" onclick="showPage('services')">Services</a></li>
+      <li><a href="#" onclick="showPage('education')">Education</a></li>
+      <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+    </ul>
+    <a href="#" class="btn-nav" onclick="showPage('contact')">Book Consultation</a>
+    <button class="ham" id="hamBtn" aria-label="Open menu" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div id="mobileMenu">
+  <a href="#" onclick="showPage('home');toggleMobile()">Home</a>
+  <a href="#" onclick="showPage('about');toggleMobile()">About Us</a>
+  <a href="#" onclick="showPage('services');toggleMobile()">Services</a>
+  <a href="#" onclick="showPage('education');toggleMobile()">Education</a>
+  <a href="#" onclick="showPage('contact');toggleMobile()">Contact Us</a>
+  <a href="#" onclick="showPage('contact');toggleMobile()" style="color:var(--orange);font-weight:700;">Book Consultation →</a>
+</div>
+
+<!-- ================================================================ -->
+<!--  HOME PAGE                                                        -->
+<!-- ================================================================ -->
+<div id="homePage" class="page active">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <!-- Wave SVG background like reference image -->
+    <div class="wave-bg">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="wg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#E8600A" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#E8600A" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#E8600A" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g stroke="url(#wg)" stroke-width="1" fill="none">
+          <path d="M-100,200 Q200,150 500,250 T1100,200 T1600,250"/>
+          <path d="M-100,280 Q300,220 600,320 T1200,270 T1600,310"/>
+          <path d="M-100,360 Q250,300 550,400 T1150,340 T1600,380"/>
+          <path d="M-100,440 Q280,380 580,480 T1180,420 T1600,460"/>
+          <path d="M-100,520 Q230,460 530,560 T1130,500 T1600,540"/>
+          <path d="M-100,600 Q310,540 610,640 T1210,580 T1600,620"/>
+          <path d="M-100,680 Q260,620 560,720 T1160,660 T1600,700"/>
+          <path d="M-100,760 Q340,700 640,800 T1240,740 T1600,780"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="container hero-content">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <div class="hero-tag">Tiruchengode &amp; Salem · Tamil Nadu</div>
+          <h1 class="hero-h1">
+            FROM <span class="stroke">MANUAL</span><br/>
+            TO <span class="orange">AUTOMATED</span>
+          </h1>
+          <p class="hero-sub">
+            <strong>Transforming Brands · Empowering Education · Driving Growth</strong><br />
+            Turning repetitive tasks into seamless workflows — showing your business its true power through AI, digital marketing, and smart strategies.
+          </p>
+          <div class="hero-btns">
+            <a href="#" class="btn-orange" onclick="showPage('contact')">Build the Future Today</a>
+            <a href="#" class="btn-ghost" onclick="showPage('services')">Explore Services</a>
+          </div>
+          <div class="hero-pills">
+            <span class="hero-pill"><i class="bi bi-gear-wide-connected"></i> Custom Solutions</span>
+            <span class="hero-pill"><i class="bi bi-cpu"></i> AI &amp; Agents</span>
+            <span class="hero-pill"><i class="bi bi-bar-chart-line"></i> Scale Smartly</span>
+          </div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-block">
+          <div class="hero-visual">
+            <!-- 3D Interactive AI Head -->
+            <div id="aiHeadWrap">
+              <!-- Floating labels -->
+              <div class="ai-label ai-label-1">Digital Marketing</div>
+              <div class="ai-label ai-label-2">AI & Automation</div>
+              <div class="ai-label ai-label-3">Healthcare IT</div>
+              <div class="ai-label ai-label-4">Education Tech</div>
+              <!-- Canvas for Three.js 3D effect -->
+              <canvas id="aiCanvas" width="480" height="580"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll" style="cursor:pointer;" onclick="document.querySelector('.stats-strip').scrollIntoView({behavior:'smooth'})">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="row g-3 text-center">
+        <div class="col-6 col-md-3"><div class="stat-box"><div class="stat-num" data-count="1000">0</div><div class="stat-lbl">Students Trained</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-box"><div class="stat-num">50+</div><div class="stat-lbl">Partner Institutions</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-box"><div class="stat-num">6</div><div class="stat-lbl">Countries Reached</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-box"><div class="stat-num">5</div><div class="stat-lbl">Service Verticals</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT PREVIEW -->
+  <section style="background:var(--black)">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-5 reveal">
+          <!-- Real "Who We Are" photo with orange overlay effects -->
+          <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 0 60px rgba(232,96,10,.15);">
+            <img src="who-we-are.jpg" alt="Who We Are – Prisa Biztech Team" style="width:100%;display:block;filter:contrast(1.05) saturate(1.1);" />
+            <!-- Orange gradient overlay — bottom fade -->
+            <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(10,10,10,.7) 0%, transparent 50%);pointer-events:none;"></div>
+            <!-- Orange tint overlay (subtle) -->
+            <div style="position:absolute;inset:0;background:rgba(232,96,10,.06);pointer-events:none;mix-blend-mode:color-burn;"></div>
+            <!-- Corner accent lines -->
+            <div style="position:absolute;top:14px;left:14px;width:30px;height:2px;background:var(--orange);"></div>
+            <div style="position:absolute;top:14px;left:14px;width:2px;height:30px;background:var(--orange);"></div>
+            <div style="position:absolute;top:14px;right:14px;width:30px;height:2px;background:var(--orange);"></div>
+            <div style="position:absolute;top:14px;right:14px;width:2px;height:30px;background:var(--orange);"></div>
+            <!-- Badge -->
+            <div style="position:absolute;bottom:1.5rem;right:1.5rem;background:var(--orange);border-radius:10px;padding:.8rem 1.2rem;text-align:center;box-shadow:0 4px 20px rgba(232,96,10,.5);">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#fff;line-height:1;">5+</div>
+              <div style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.9);">Years of Impact</div>
+            </div>
+            <!-- Bottom left caption bar -->
+            <div style="position:absolute;bottom:0;left:0;right:0;padding:1.2rem 1.5rem;">
+              <div style="font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);font-weight:700;">Prisa Biztech Team</div>
+              <div style="font-size:.8rem;color:rgba(255,255,255,.7);margin-top:.2rem;">Driven by passion · Powered by technology</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="reveal rd1">
+            <div class="sec-tag">Who We Are</div>
+            <h2 class="sec-heading">GROWTH-DRIVEN<br/><span class="o">SOLUTIONS</span> FOR<br/>A DIGITAL ERA</h2>
+          </div>
+          <p class="sec-body reveal rd2">Prisa Biztech Solutions is a multi-service organization delivering digital marketing, AI &amp; IT solutions, healthcare support, and educational transformation. We bridge business, technology, and education for measurable success.</p>
+          <div class="row g-3 mt-3 reveal rd3">
+            <div class="col-6">
+              <div style="display:flex;align-items:center;gap:.7rem;">
+                <i class="bi bi-check-circle-fill" style="color:var(--orange);font-size:1rem;"></i>
+                <span style="font-size:.85rem;color:rgba(255,255,255,.75);">Healthcare Expertise</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="display:flex;align-items:center;gap:.7rem;">
+                <i class="bi bi-check-circle-fill" style="color:var(--orange);font-size:1rem;"></i>
+                <span style="font-size:.85rem;color:rgba(255,255,255,.75);">AI-Powered Strategies</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="display:flex;align-items:center;gap:.7rem;">
+                <i class="bi bi-check-circle-fill" style="color:var(--orange);font-size:1rem;"></i>
+                <span style="font-size:.85rem;color:rgba(255,255,255,.75);">Education Specialization</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="display:flex;align-items:center;gap:.7rem;">
+                <i class="bi bi-check-circle-fill" style="color:var(--orange);font-size:1rem;"></i>
+                <span style="font-size:.85rem;color:rgba(255,255,255,.75);">Global Online Reach</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 reveal rd4">
+            <a href="#" class="btn-ghost" onclick="showPage('about')">Learn More →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES GRID -->
+  <section style="background:var(--black2)">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <div class="sec-tag" style="justify-content:center;">What We Offer</div>
+        <h2 class="sec-heading">OUR CORE <span class="o">SERVICES</span></h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4 reveal rd1">
+          <div class="card-o">
+            <span class="card-num">01</span>
+            <div class="card-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+            <h4>Healthcare Services</h4>
+            <p>Complete solutions for hospitals and clinics — digital marketing, NABH accreditation, manpower hiring, and IT.</p>
+            <div class="card-tags"><span class="tag-o">Marketing</span><span class="tag-o">NABH</span><span class="tag-o">Hiring</span></div>
+            <a href="#" class="card-link" onclick="showPage('services')">Explore <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 reveal rd2">
+          <div class="card-o">
+            <span class="card-num">02</span>
+            <div class="card-icon"><i class="bi bi-graph-up-arrow"></i></div>
+            <h4>Commercial Platforms</h4>
+            <p>Helping businesses grow with result-driven digital marketing, paid ads, branding, and talent solutions.</p>
+            <div class="card-tags"><span class="tag-o">Paid Ads</span><span class="tag-o">Branding</span><span class="tag-o">SEO</span></div>
+            <a href="#" class="card-link" onclick="showPage('services')">Explore <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 reveal rd3">
+          <div class="card-o">
+            <span class="card-num">03</span>
+            <div class="card-icon"><i class="bi bi-person-badge-fill"></i></div>
+            <h4>Personal Branding</h4>
+            <p>Position doctors, entrepreneurs, and professionals as thought leaders with targeted branding strategies.</p>
+            <div class="card-tags"><span class="tag-o">Doctors</span><span class="tag-o">Entrepreneurs</span></div>
+            <a href="#" class="card-link" onclick="showPage('services')">Explore <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 reveal rd4">
+          <div class="card-o">
+            <span class="card-num">04</span>
+            <div class="card-icon"><i class="bi bi-mortarboard-fill"></i></div>
+            <h4>Educational Services</h4>
+            <p>From NAAC/NBA accreditation to placement services, internships, and AI integration for institutions.</p>
+            <div class="card-tags"><span class="tag-o">NAAC</span><span class="tag-o">Placements</span><span class="tag-o">Training</span></div>
+            <a href="#" class="card-link" onclick="showPage('services')">Explore <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 reveal rd5">
+          <div class="card-o">
+            <span class="card-num">05</span>
+            <div class="card-icon"><i class="bi bi-globe2"></i></div>
+            <h4>Abroad Online Classes</h4>
+            <p>Chess, Music, and Language coaching for the Indian diaspora across 6 countries — live, online, expert-led.</p>
+            <div class="card-tags"><span class="tag-o">Chess</span><span class="tag-o">Music</span><span class="tag-o">Language</span></div>
+            <a href="#" class="card-link" onclick="showPage('services')">Explore <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 reveal rd5 d-flex align-items-center">
+          <div style="background:linear-gradient(135deg,rgba(232,96,10,.15),rgba(232,96,10,.04)),var(--panel);border:1px solid var(--border);border-radius:12px;padding:2rem;width:100%;">
+            <div class="sec-tag mb-2">Ready?</div>
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.04em;color:var(--white);margin-bottom:1rem;">Let's build your success story</h3>
+            <a href="#" class="btn-orange" onclick="showPage('contact')">Book Consultation</a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-5 reveal">
+        <a href="#" class="btn-ghost" onclick="showPage('services')">View All Services →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section style="background:var(--black)">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-5 reveal">
+          <div class="sec-tag">The Prisa Advantage</div>
+          <h2 class="sec-heading">WHY CHOOSE <span class="o">US</span></h2>
+          <p class="sec-body">We combine multi-industry expertise with AI-powered strategies to deliver customized, result-driven solutions — every engagement built for measurable impact.</p>
+        </div>
+        <div class="col-lg-7">
+          <div class="reveal rd1">
+            <div class="why-row">
+              <div class="why-icon"><i class="bi bi-layers-fill"></i></div>
+              <div><h5>Multi-industry Expertise</h5><p>From healthcare to education to commercial brands — we speak every industry's language fluently.</p></div>
+            </div>
+          </div>
+          <div class="reveal rd2">
+            <div class="why-row">
+              <div class="why-icon"><i class="bi bi-cpu-fill"></i></div>
+              <div><h5>AI-powered Strategies</h5><p>Cutting-edge AI tools and data analytics drive smarter decisions and faster, compounding results.</p></div>
+            </div>
+          </div>
+          <div class="reveal rd3">
+            <div class="why-row">
+              <div class="why-icon"><i class="bi bi-bar-chart-fill"></i></div>
+              <div><h5>Result-driven Approach</h5><p>Every strategy is backed by KPIs. We measure, iterate, and optimize until results speak for themselves.</p></div>
+            </div>
+          </div>
+          <div class="reveal rd4">
+            <div class="why-row">
+              <div class="why-icon"><i class="bi bi-puzzle-fill"></i></div>
+              <div><h5>Customized Solutions</h5><p>No one-size-fits-all. Every client receives a bespoke roadmap aligned with their unique goals.</p></div>
+            </div>
+          </div>
+          <div class="reveal rd5">
+            <div class="why-row">
+              <div class="why-icon"><i class="bi bi-globe-americas"></i></div>
+              <div><h5>Global Learning Reach</h5><p>Online education programs now serving students across Australia, Canada, UK, Dubai, and Singapore.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section class="impact-section">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <div class="sec-tag" style="justify-content:center;">Our Impact</div>
+        <h2 class="sec-heading">NUMBERS THAT <span class="o">SPEAK</span></h2>
+      </div>
+      <div class="row text-center g-4">
+        <div class="col-6 col-md-3 reveal rd1"><div class="impact-num">1000+</div><div class="impact-lbl">Students Trained</div></div>
+        <div class="col-6 col-md-3 reveal rd2"><div class="impact-num">50+</div><div class="impact-lbl">Hospitals &amp; Institutions</div></div>
+        <div class="col-6 col-md-3 reveal rd3"><div class="impact-num">6</div><div class="impact-lbl">Countries Reached</div></div>
+        <div class="col-6 col-md-3 reveal rd4"><div class="impact-num">100%</div><div class="impact-lbl">Growth Focused</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs SECTION -->
+  <section style="background:var(--black)">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <div class="sec-tag" style="justify-content:center;">FAQ</div>
+        <h2 class="sec-heading">FREQUENTLY ASKED <span class="o">QUESTIONS</span></h2>
+        <p style="color:var(--muted);max-width:520px;margin:.8rem auto 0;font-size:.93rem;">Everything you need to know about Prisa Biztech Solutions and our services.</p>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="faq-list reveal">
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                What services does Prisa Biztech Solutions offer?
+                <i class="bi bi-plus-lg faq-icon"></i>
+              </button>
+              <div class="faq-a">
+                <p>We offer five core service verticals: Healthcare Services (digital marketing, NABH accreditation, manpower, IT), Commercial Platform Marketing, Personal Branding for professionals and doctors, Educational Institution Services (NAAC/NBA, placements, internships), and Abroad Online Classes (Chess, Music, Language) for the Indian diaspora in 6 countries.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                Which industries do you specialize in?
+                <i class="bi bi-plus-lg faq-icon"></i>
+              </button>
+              <div class="faq-a">
+                <p>We specialize in Healthcare, Education, and Commercial businesses. Our team has deep domain knowledge in hospital operations, NABH/NAAC accreditation, digital marketing for clinics, and institutional transformation — making us a true multi-industry partner.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                How do your abroad online classes work?
+                <i class="bi bi-plus-lg faq-icon"></i>
+              </button>
+              <div class="faq-a">
+                <p>Our abroad online classes are conducted live over video conferencing platforms by certified, expert instructors. We offer Chess, Music (Carnatic, keyboard, vocal), and Language programs for students in Australia, Canada, UK, Dubai, Singapore, and more. Sessions are flexible and scheduled to suit international time zones.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                Can you help our hospital get NABH accreditation?
+                <i class="bi bi-plus-lg faq-icon"></i>
+              </button>
+              <div class="faq-a">
+                <p>Yes! We provide complete end-to-end NABH accreditation support — from gap analysis and documentation preparation to mock assessments and final submission. Our healthcare experts have guided multiple hospitals through successful accreditation with minimal disruption to daily operations.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                Do you offer NAAC and NBA support for educational institutions?
+                <i class="bi bi-plus-lg faq-icon"></i>
+              </button>
+              <div class="faq-a">
+                <p>Absolutely. We offer full documentation, AQAR preparation, SSR drafting, criterion-wise analysis, and expert guidance for NAAC, NBA, and NIRF ranking. Our team works closely with your institution's IQAC to ensure a smooth and successful accreditation process.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                How do I get started with Prisa Biztech?
+                <i class="bi bi-plus-lg faq-icon"></i>
+              </button>
+              <div class="faq-a">
+                <p>Getting started is simple — reach out via our Contact page or click "Book Consultation" above. We'll schedule a free 15-minute discovery call to understand your goals, recommend the right service, and build a customized roadmap. No commitment required for the first call.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                Where is Prisa Biztech Solutions located?
+                <i class="bi bi-plus-lg faq-icon"></i>
+              </button>
+              <div class="faq-a">
+                <p>We are based in Tiruchengode and Salem, Tamil Nadu, India. While we serve clients across Tamil Nadu and India, our digital services and online coaching programs reach students and institutions globally across 6 countries.</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="text-center mt-5 reveal">
+            <p style="color:var(--muted);font-size:.9rem;">Still have questions?</p>
+            <a href="#" class="btn-orange mt-3 d-inline-block" onclick="showPage('contact')">Talk to Our Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:var(--black2);padding:5rem 0;">
+    <div class="container reveal">
+      <div class="cta-banner">
+        <div class="sec-tag" style="justify-content:center;margin-bottom:.8rem;">Next Step</div>
+        <h2>READY TO <span>GROW</span> WITH US?</h2>
+        <p>Let's build your success story — one strategy, one solution, one milestone at a time.</p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap" style="position:relative;z-index:1;">
+          <a href="#" class="btn-orange" onclick="showPage('contact')">Book Consultation</a>
+          <a href="#" class="btn-ghost" onclick="showPage('services')">View Services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /homePage -->
+
+
+<!-- ================================================================ -->
+<!--  ABOUT PAGE                                                       -->
+<!-- ================================================================ -->
+<div id="aboutPage" class="page">
+  <div class="page-hero">
+    <div class="container">
+      <div class="reveal">
+        <div class="sec-tag">Who We Are</div>
+        <h1 class="sec-heading">ABOUT <span class="o">PRISA</span><br/>BIZTECH</h1>
+        <p class="sec-body">A growth-driven, multi-service organization bridging business, technology, and education for measurable success.</p>
+      </div>
+    </div>
+  </div>
+
+  <section style="background:var(--black)">
+    <div class="container">
+      <div class="row g-5 align-items-start">
+        <div class="col-lg-6 reveal">
+          <div class="sec-tag">Company Overview</div>
+          <h2 class="sec-heading">INNOVATION AT<br/>THE <span class="o">INTERSECTION</span></h2>
+          <p class="sec-body">Prisa Biztech Solutions is a multi-service organization specializing in digital marketing, AI &amp; IT solutions, healthcare services, and educational transformation. We connect industry needs with innovative solutions to drive growth and impact.</p>
+          <p class="sec-body mt-3" style="max-width:none;">Based in Tiruchengode and Salem, Tamil Nadu, our educational and coaching services now reach students globally across Australia, Canada, UK, Dubai, and Singapore.</p>
+        </div>
+        <div class="col-lg-3 reveal rd2" style="display:flex;">
+          <div class="card-o" style="padding:2rem;width:100%;">
+            <div class="card-icon"><i class="bi bi-eye-fill"></i></div>
+            <h4 style="font-size:1.1rem;">Vision</h4>
+            <p style="font-size:.85rem;">To build a future-ready ecosystem driven by technology, education, and innovation.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 reveal rd3" style="display:flex;">
+          <div class="card-o" style="padding:2rem;width:100%;">
+            <div class="card-icon"><i class="bi bi-rocket-takeoff-fill"></i></div>
+            <h4 style="font-size:1.1rem;">Mission</h4>
+            <p style="font-size:.85rem;">To deliver practical, scalable, and growth-focused solutions for businesses, healthcare providers, and institutions.</p>
+          </div>
+        </div>
+      </div>
+
+      <hr style="border-color:var(--border2);margin:5rem 0;" />
+
+      <div class="row g-4 mb-5">
+        <div class="col-12 reveal"><div class="sec-tag">Our Strengths</div><h2 class="sec-heading">WHAT SETS US <span class="o">APART</span></h2></div>
+        <div class="col-md-6 col-lg-3 reveal rd1"><div class="card-o" style="padding:1.7rem;"><div class="card-icon"><i class="bi bi-heart-pulse-fill"></i></div><h4 style="font-size:1.05rem;">Healthcare Expertise</h4><p style="font-size:.83rem;">Deep domain knowledge in hospital operations, digital marketing, and accreditation.</p></div></div>
+        <div class="col-md-6 col-lg-3 reveal rd2"><div class="card-o" style="padding:1.7rem;"><div class="card-icon"><i class="bi bi-mortarboard-fill"></i></div><h4 style="font-size:1.05rem;">Education Specialization</h4><p style="font-size:.83rem;">From school awareness to college NAAC ranking — we know education inside out.</p></div></div>
+        <div class="col-md-6 col-lg-3 reveal rd3"><div class="card-o" style="padding:1.7rem;"><div class="card-icon"><i class="bi bi-cpu-fill"></i></div><h4 style="font-size:1.05rem;">Technology-driven</h4><p style="font-size:.83rem;">AI-powered marketing, app integration, and IT solutions for modern businesses.</p></div></div>
+        <div class="col-md-6 col-lg-3 reveal rd4"><div class="card-o" style="padding:1.7rem;"><div class="card-icon"><i class="bi bi-people-fill"></i></div><h4 style="font-size:1.05rem;">Training &amp; Development</h4><p style="font-size:.83rem;">1000+ students trained with placements, internships, and skill programs.</p></div></div>
+      </div>
+
+      <div class="row g-5">
+        <div class="col-lg-6 reveal">
+          <div class="sec-tag">Our Journey</div>
+          <h2 class="sec-heading">MILESTONES &amp;<br/><span class="o">ACHIEVEMENTS</span></h2>
+          <div style="margin-top:2rem;">
+            <div class="jitem"><h6>Training Excellence</h6><p>Over 1,000 students trained across diverse programs — from IELTS coaching to fitness and safety training.</p></div>
+            <div class="jitem"><h6>Tamil Nadu Collaborations</h6><p>Successful partnerships with hospitals, colleges, and businesses across Tamil Nadu, delivering measurable results.</p></div>
+            <div class="jitem"><h6>Branding &amp; Marketing Success</h6><p>Multiple brands built from ground up — helping entrepreneurs, doctors, and professionals establish their online presence.</p></div>
+            <div class="jitem"><h6>Global Online Reach</h6><p>Chess, music, and language coaching programs now serving students in 6 countries worldwide.</p></div>
+          </div>
+        </div>
+        <div class="col-lg-6 reveal rd2">
+          <div style="background:linear-gradient(135deg,rgba(232,96,10,.1),rgba(232,96,10,.03)),var(--panel);border:1px solid var(--border);border-radius:12px;padding:3rem;height:100%;display:flex;flex-direction:column;justify-content:center;">
+            <div class="row g-4 text-center">
+              <div class="col-6"><div class="impact-num">1000+</div><div class="impact-lbl">Students Trained</div></div>
+              <div class="col-6"><div class="impact-num">50+</div><div class="impact-lbl">Partner Institutions</div></div>
+              <div class="col-6"><div class="impact-num">6</div><div class="impact-lbl">Countries Served</div></div>
+              <div class="col-6"><div class="impact-num">5</div><div class="impact-lbl">Service Verticals</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:5rem 0;background:var(--black2)">
+    <div class="container reveal">
+      <div class="cta-banner">
+        <h2>PARTNER WITH <span>PRISA</span></h2>
+        <p>Join hundreds of organizations that have transformed their business with our expertise.</p>
+        <a href="#" class="btn-orange" onclick="showPage('contact')" style="position:relative;z-index:1;">Book a Consultation</a>
+      </div>
+    </div>
+  </section>
+</div><!-- /aboutPage -->
+
+
+<!-- ================================================================ -->
+<!--  SERVICES PAGE                                                    -->
+<!-- ================================================================ -->
+<div id="servicesPage" class="page">
+  <div class="page-hero">
+    <div class="container">
+      <div class="reveal">
+        <div class="sec-tag">What We Offer</div>
+        <h1 class="sec-heading">OUR <span class="o">SERVICES</span></h1>
+        <p class="sec-body">Five comprehensive service verticals designed to grow, transform, and future-proof your organization.</p>
+      </div>
+    </div>
+  </div>
+
+  <section style="background:var(--black)">
+    <div class="container">
+
+      <!-- S1 -->
+      <div class="svc-detail">
+        <div class="row g-5 align-items-start">
+          <div class="col-lg-4 reveal">
+            <div class="card-icon" style="width:64px;height:64px;font-size:1.6rem;border-radius:14px;margin-bottom:1.5rem;"><i class="bi bi-heart-pulse-fill"></i></div>
+            <div class="sec-tag">Service 01</div>
+            <h2 class="sec-heading">HEALTHCARE<br/><span class="o">SERVICES</span></h2>
+            <p class="sec-body" style="max-width:none;">Complete end-to-end solutions for hospitals and clinics — combining digital presence with operational excellence.</p>
+            <a href="#" class="btn-orange mt-4 d-inline-block" onclick="showPage('contact')">Get Started</a>
+          </div>
+          <div class="col-lg-8 reveal rd2">
+            <div class="row g-3">
+              <div class="col-md-6"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-megaphone-fill"></i></div><h4 style="font-size:1rem;">Digital Marketing</h4><p style="font-size:.82rem;">Targeted campaigns, SEO, social media, and reputation management for healthcare brands.</p></div></div>
+              <div class="col-md-6"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-people-fill"></i></div><h4 style="font-size:1rem;">Manpower Hiring</h4><p style="font-size:.82rem;">Sourcing qualified medical and administrative staff for hospitals and clinics.</p></div></div>
+              <div class="col-md-6"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-laptop-fill"></i></div><h4 style="font-size:1rem;">IT Services</h4><p style="font-size:.82rem;">Hospital management systems, website development, and digital infrastructure.</p></div></div>
+              <div class="col-md-6"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-shield-plus-fill"></i></div><h4 style="font-size:1rem;">NABH Accreditation</h4><p style="font-size:.82rem;">End-to-end guidance and documentation support for NABH certification.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S2 -->
+      <div class="svc-detail">
+        <div class="row g-5 align-items-start flex-row-reverse">
+          <div class="col-lg-4 reveal">
+            <div class="card-icon" style="width:64px;height:64px;font-size:1.6rem;border-radius:14px;margin-bottom:1.5rem;"><i class="bi bi-graph-up-arrow"></i></div>
+            <div class="sec-tag">Service 02</div>
+            <h2 class="sec-heading">COMMERCIAL<br/><span class="o">PLATFORMS</span></h2>
+            <p class="sec-body" style="max-width:none;">Helping businesses grow and scale with result-driven strategies, digital marketing, and talent solutions.</p>
+            <a href="#" class="btn-orange mt-4 d-inline-block" onclick="showPage('contact')">Get Started</a>
+          </div>
+          <div class="col-lg-8 reveal rd2">
+            <div class="row g-3">
+              <div class="col-md-4"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-bar-chart-fill"></i></div><h4 style="font-size:1rem;">Digital Marketing</h4><p style="font-size:.82rem;">SEO, social media, email, and content marketing for commercial growth.</p></div></div>
+              <div class="col-md-4"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-cursor-fill"></i></div><h4 style="font-size:1rem;">Paid Ads &amp; Branding</h4><p style="font-size:.82rem;">Google Ads, Meta Ads, and brand identity creation that converts.</p></div></div>
+              <div class="col-md-4"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-briefcase-fill"></i></div><h4 style="font-size:1rem;">Manpower Hiring</h4><p style="font-size:.82rem;">Recruitment solutions tailored to your business domain and scale.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S3 -->
+      <div class="svc-detail">
+        <div class="row g-5 align-items-start">
+          <div class="col-lg-4 reveal">
+            <div class="card-icon" style="width:64px;height:64px;font-size:1.6rem;border-radius:14px;margin-bottom:1.5rem;"><i class="bi bi-person-badge-fill"></i></div>
+            <div class="sec-tag">Service 03</div>
+            <h2 class="sec-heading">PERSONAL<br/><span class="o">BRANDING</span></h2>
+            <p class="sec-body" style="max-width:none;">For entrepreneurs, doctors, and professionals who want to be seen as thought leaders in their field.</p>
+            <a href="#" class="btn-orange mt-4 d-inline-block" onclick="showPage('contact')">Get Started</a>
+          </div>
+          <div class="col-lg-8 reveal rd2">
+            <div class="row g-3">
+              <div class="col-md-4"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-lightbulb-fill"></i></div><h4 style="font-size:1rem;">Branding Strategy</h4><p style="font-size:.82rem;">Personal identity, positioning, and roadmap to industry authority.</p></div></div>
+              <div class="col-md-4"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-instagram"></i></div><h4 style="font-size:1rem;">Social Media Growth</h4><p style="font-size:.82rem;">Platform-specific strategies to grow your audience and engagement.</p></div></div>
+              <div class="col-md-4"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-pencil-square"></i></div><h4 style="font-size:1rem;">Content Creation</h4><p style="font-size:.82rem;">Videos, articles, graphics, and storytelling that builds credibility.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S4 -->
+      <div class="svc-detail">
+        <div class="row g-5 align-items-start flex-row-reverse">
+          <div class="col-lg-4 reveal">
+            <div class="card-icon" style="width:64px;height:64px;font-size:1.6rem;border-radius:14px;margin-bottom:1.5rem;"><i class="bi bi-mortarboard-fill"></i></div>
+            <div class="sec-tag">Service 04</div>
+            <h2 class="sec-heading">EDUCATIONAL<br/><span class="o">SERVICES</span></h2>
+            <p class="sec-body" style="max-width:none;">End-to-end transformation for schools and colleges — from accreditation to student placements.</p>
+            <a href="#" class="btn-orange mt-4 d-inline-block" onclick="showPage('education')">Learn More</a>
+          </div>
+          <div class="col-lg-8 reveal rd2">
+            <div class="row g-3">
+              <div class="col-md-6"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-journal-text"></i></div><h4 style="font-size:1rem;">Academic Support</h4><p style="font-size:.82rem;">Counselling, tech talks, BOS associations, and subject-matter expertise.</p></div></div>
+              <div class="col-md-6"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-patch-check-fill"></i></div><h4 style="font-size:1rem;">Accreditation (NAAC/NBA)</h4><p style="font-size:.82rem;">Complete documentation and support for NAAC, NBA, and NIRF ranking.</p></div></div>
+              <div class="col-md-6"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-translate"></i></div><h4 style="font-size:1rem;">IELTS / TOEFL / PTE</h4><p style="font-size:.82rem;">Certified language training programs for international study aspirants.</p></div></div>
+              <div class="col-md-6"><div class="card-o" style="padding:1.5rem;"><div class="card-icon" style="width:40px;height:40px;font-size:.95rem;margin-bottom:.9rem;border-radius:8px;"><i class="bi bi-broadcast-pin"></i></div><h4 style="font-size:1rem;">Awareness Programs</h4><p style="font-size:.82rem;">Cyber safety, mental health, drug awareness, and eco-initiatives.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S5 -->
+      <div class="svc-detail">
+        <div class="row g-5 align-items-start">
+          <div class="col-lg-4 reveal">
+            <div class="card-icon" style="width:64px;height:64px;font-size:1.6rem;border-radius:14px;margin-bottom:1.5rem;"><i class="bi bi-globe2"></i></div>
+            <div class="sec-tag">Service 05</div>
+            <h2 class="sec-heading">ABROAD ONLINE<br/><span class="o">CLASSES</span></h2>
+            <p class="sec-body" style="max-width:none;">Global coaching for the Indian diaspora — Chess, Music, and Language — in 6 countries.</p>
+            <div class="card-tags mt-3"><span class="tag-o">Australia</span><span class="tag-o">Canada</span><span class="tag-o">UK</span><span class="tag-o">Dubai</span><span class="tag-o">Singapore</span></div>
+            <a href="#" class="btn-orange mt-4 d-inline-block" onclick="showPage('contact')">Enroll Now</a>
+          </div>
+          <div class="col-lg-8 reveal rd2">
+            <div class="row g-3">
+              <div class="col-md-4"><div class="card-o" style="padding:2rem;text-align:center;"><div class="card-icon" style="width:56px;height:56px;font-size:1.4rem;margin:0 auto 1.2rem;border-radius:12px;"><i class="bi bi-grid-3x3-gap-fill"></i></div><h4>Chess Coaching</h4><p style="font-size:.83rem;">Structured chess learning from beginners to advanced — live online sessions.</p></div></div>
+              <div class="col-md-4"><div class="card-o" style="padding:2rem;text-align:center;"><div class="card-icon" style="width:56px;height:56px;font-size:1.4rem;margin:0 auto 1.2rem;border-radius:12px;"><i class="bi bi-music-note-beamed"></i></div><h4>Music Classes</h4><p style="font-size:.83rem;">Traditional and contemporary music training for all ages — Carnatic, keyboard, vocal.</p></div></div>
+              <div class="col-md-4"><div class="card-o" style="padding:2rem;text-align:center;"><div class="card-icon" style="width:56px;height:56px;font-size:1.4rem;margin:0 auto 1.2rem;border-radius:12px;"><i class="bi bi-chat-quote-fill"></i></div><h4>Language Training</h4><p style="font-size:.83rem;">Tamil, English, and other language programs for the Indian diaspora and global learners.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="padding:5rem 0;background:var(--black2)">
+    <div class="container reveal">
+      <div class="cta-banner">
+        <h2>NOT SURE WHICH <span>SERVICE FITS?</span></h2>
+        <p>Book a free strategy call and our experts will guide you to the right solution.</p>
+        <a href="#" class="btn-orange" onclick="showPage('contact')" style="position:relative;z-index:1;">Get Free Strategy Call</a>
+      </div>
+    </div>
+  </section>
+</div><!-- /servicesPage -->
+
+
+<!-- ================================================================ -->
+<!--  EDUCATION PAGE                                                   -->
+<!-- ================================================================ -->
+<div id="educationPage" class="page">
+  <div class="page-hero">
+    <div class="container">
+      <div class="reveal">
+        <div class="sec-tag">For Schools &amp; Colleges</div>
+        <h1 class="sec-heading">EDUCATION<br/><span class="o">TRANSFORMATION</span></h1>
+        <p class="sec-body">Comprehensive institutional services — from accreditation to awareness — that elevate the learning ecosystem.</p>
+      </div>
+    </div>
+  </div>
+
+  <section style="background:var(--black)">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-12 reveal"><div class="sec-tag">Institutional Services</div><h2 class="sec-heading">EVERYTHING YOUR<br/>INSTITUTION <span class="o">NEEDS</span></h2></div>
+        <div class="col-md-6 col-lg-4 reveal rd1"><div class="edu-card"><i class="bi bi-journal-bookmark-fill"></i><h5>Course Counselling</h5><p>Expert counselling for students and institutions on course selection, career mapping, and academic planning.</p></div></div>
+        <div class="col-md-6 col-lg-4 reveal rd2"><div class="edu-card"><i class="bi bi-briefcase-fill"></i><h5>Placement Services</h5><p>Campus placement drives, employer connections, and career readiness programs for high employment rates.</p></div></div>
+        <div class="col-md-6 col-lg-4 reveal rd3"><div class="edu-card"><i class="bi bi-code-slash"></i><h5>App Integration &amp; AI</h5><p>Smart campus technology — AI tools, app integration, and digital infrastructure for modern institutions.</p></div></div>
+        <div class="col-md-6 col-lg-4 reveal rd4"><div class="edu-card"><i class="bi bi-patch-check-fill"></i><h5>NAAC / NBA Accreditation</h5><p>Full support for NAAC, NBA accreditation, and NIRF ranking — from documentation to presentations.</p></div></div>
+        <div class="col-md-6 col-lg-4 reveal rd5"><div class="edu-card"><i class="bi bi-translate"></i><h5>IELTS / TOEFL / PTE</h5><p>Certified language training programs that prepare students for international exams and abroad studies.</p></div></div>
+        <div class="col-md-6 col-lg-4 reveal rd5"><div class="edu-card"><i class="bi bi-person-workspace"></i><h5>Internship &amp; Project Support</h5><p>Industry collaborations, internship placements, and live project opportunities for students.</p></div></div>
+        <div class="col-md-6 col-lg-4 reveal"><div class="edu-card"><i class="bi bi-shield-lock-fill"></i><h5>Cyber Safety Awareness</h5><p>Interactive sessions on digital safety, social media literacy, and responsible internet use for students.</p></div></div>
+        <div class="col-md-6 col-lg-4 reveal rd1"><div class="edu-card"><i class="bi bi-heart-fill"></i><h5>Mental Health Programs</h5><p>Workshops, counselling support, and awareness programs addressing student mental wellness.</p></div></div>
+        <div class="col-md-6 col-lg-4 reveal rd2"><div class="edu-card"><i class="bi bi-fire"></i><h5>Fitness &amp; Survival Training</h5><p>Disaster preparedness, safety drills, and fitness programs that build resilient campus communities.</p></div></div>
+      </div>
+
+      <!-- Countries -->
+      <div style="margin-top:5rem;">
+        <div class="text-center mb-4 reveal">
+          <div class="sec-tag" style="justify-content:center;">Global Reach</div>
+          <h2 class="sec-heading">ONLINE CLASSES FOR THE<br/><span class="o">INDIAN DIASPORA</span></h2>
+          <p style="color:var(--muted);max-width:500px;margin:1rem auto 0;font-size:.9rem;">Our abroad online classes bring quality Indian education to students in:</p>
+        </div>
+        <div class="row g-3 justify-content-center reveal rd2">
+          <div class="col-6 col-md-4 col-lg-2"><div style="text-align:center;padding:1.5rem;background:var(--panel);border:1px solid var(--border2);border-radius:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='var(--border)'" onmouseout="this.style.borderColor='var(--border2)'"><div style="font-size:2rem;margin-bottom:.5rem;">🇦🇺</div><div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);">Australia</div></div></div>
+          <div class="col-6 col-md-4 col-lg-2"><div style="text-align:center;padding:1.5rem;background:var(--panel);border:1px solid var(--border2);border-radius:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='var(--border)'" onmouseout="this.style.borderColor='var(--border2)'"><div style="font-size:2rem;margin-bottom:.5rem;">🇨🇦</div><div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);">Canada</div></div></div>
+          <div class="col-6 col-md-4 col-lg-2"><div style="text-align:center;padding:1.5rem;background:var(--panel);border:1px solid var(--border2);border-radius:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='var(--border)'" onmouseout="this.style.borderColor='var(--border2)'"><div style="font-size:2rem;margin-bottom:.5rem;">🇬🇧</div><div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);">United Kingdom</div></div></div>
+          <div class="col-6 col-md-4 col-lg-2"><div style="text-align:center;padding:1.5rem;background:var(--panel);border:1px solid var(--border2);border-radius:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='var(--border)'" onmouseout="this.style.borderColor='var(--border2)'"><div style="font-size:2rem;margin-bottom:.5rem;">🇦🇪</div><div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);">Dubai</div></div></div>
+          <div class="col-6 col-md-4 col-lg-2"><div style="text-align:center;padding:1.5rem;background:var(--panel);border:1px solid var(--border2);border-radius:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='var(--border)'" onmouseout="this.style.borderColor='var(--border2)'"><div style="font-size:2rem;margin-bottom:.5rem;">🇸🇬</div><div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);">Singapore</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:5rem 0;background:var(--black2)">
+    <div class="container reveal">
+      <div class="cta-banner">
+        <h2>ENROLL YOUR INSTITUTION <span>OR STUDENT</span></h2>
+        <p>Partner with Prisa Biztech to elevate your academic ecosystem.</p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap" style="position:relative;z-index:1;">
+          <a href="#" class="btn-orange" onclick="showPage('contact')">Enroll Now</a>
+          <a href="#" class="btn-ghost" onclick="showPage('contact')">Partner With Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /educationPage -->
+
+
+<!-- ================================================================ -->
+<!--  CONTACT PAGE                                                     -->
+<!-- ================================================================ -->
+<div id="contactPage" class="page">
+  <div class="page-hero">
+    <div class="container">
+      <div class="reveal">
+        <div class="sec-tag">Let's Talk</div>
+        <h1 class="sec-heading">GET IN <span class="o">TOUCH</span></h1>
+        <p class="sec-body">Ready to grow? Book a consultation and let's build your success story together.</p>
+      </div>
+    </div>
+  </div>
+
+  <section style="background:var(--black)">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Form -->
+        <div class="col-lg-7 reveal">
+          <div class="form-wrap">
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.04em;color:var(--white);margin-bottom:2rem;">Send us a <span style="color:var(--orange);">message</span></h3>
+            <div class="row g-3">
+              <div class="col-md-6"><label class="f-label">Full Name</label><input type="text" class="f-ctrl" placeholder="Your name" /></div>
+              <div class="col-md-6"><label class="f-label">Phone Number</label><input type="tel" class="f-ctrl" placeholder="+91 XXXXX XXXXX" /></div>
+              <div class="col-12"><label class="f-label">Email Address</label><input type="email" class="f-ctrl" placeholder="yourmail@email.com" /></div>
+              <div class="col-12">
+                <label class="f-label">Service Interested</label>
+                <select class="f-ctrl">
+                  <option value="" disabled selected>Select a service</option>
+                  <option>Healthcare Services</option>
+                  <option>Commercial Platforms</option>
+                  <option>Personal Branding</option>
+                  <option>Educational Institution Services</option>
+                  <option>Abroad Online Classes</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="col-12"><label class="f-label">Your Message</label><textarea class="f-ctrl" rows="4" placeholder="Tell us about your goals..."></textarea></div>
+              <div class="col-12">
+                <button class="btn-orange" style="width:100%;text-align:center;border:none;cursor:pointer;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;" onclick="handleSubmit(event)">
+                  Send Message &nbsp;<i class="bi bi-send-fill"></i>
+                </button>
+              </div>
+              <div class="col-12"><p style="font-size:.75rem;color:var(--muted);text-align:center;">We typically respond within 24 hours on business days.</p></div>
+            </div>
+          </div>
+        </div>
+        <!-- Info -->
+        <div class="col-lg-5 reveal rd2">
+          <div class="cinfo-card">
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.04em;color:var(--white);margin-bottom:2rem;">Contact <span style="color:var(--orange);">Info</span></h3>
+            <div class="cinfo-row"><div class="cinfo-ico"><i class="bi bi-geo-alt-fill"></i></div><div><div class="cinfo-lbl">Locations</div><div class="cinfo-val">Tiruchengode &amp; Salem, Tamil Nadu, India</div></div></div>
+            <div class="cinfo-row"><div class="cinfo-ico"><i class="bi bi-telephone-fill"></i></div><div><div class="cinfo-lbl">Phone</div><div class="cinfo-val"><a href="tel:+91XXXXXXXXXX" style="color:inherit;text-decoration:none;">+91 XXXXX XXXXX</a></div></div></div>
+            <div class="cinfo-row"><div class="cinfo-ico"><i class="bi bi-envelope-fill"></i></div><div><div class="cinfo-lbl">Email</div><div class="cinfo-val"><a href="mailto:yourmail@gmail.com" style="color:inherit;text-decoration:none;">yourmail@gmail.com</a></div></div></div>
+            <div class="cinfo-row"><div class="cinfo-ico"><i class="bi bi-clock-fill"></i></div><div><div class="cinfo-lbl">Business Hours</div><div class="cinfo-val">Monday – Saturday: 9:00 AM – 6:00 PM IST</div></div></div>
+            <div style="margin-top:.5rem;">
+              <div style="font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:1rem;">Follow Us</div>
+              <div class="soc-row">
+                <a href="#" class="soc-btn" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="soc-btn" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="soc-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="#" class="soc-btn" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                <a href="#" class="soc-btn" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+              </div>
+            </div>
+            <div style="border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-top:1.8rem;">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125340.93!2d77.7921!3d11.3662!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba9607f6d91ff6f%3A0x93c48e07ee888a53!2sTiruchengode%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1680000000000"
+                width="100%" height="200" style="border:0;display:block;filter:grayscale(80%) invert(10%);" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Prisa Biztech Location"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Quick Actions -->
+      <div class="row g-3 mt-5">
+        <div class="col-12 reveal"><div class="sec-tag">Quick Actions</div><h3 class="sec-heading" style="font-size:2.5rem;">CHOOSE YOUR<br/>NEXT <span class="o">STEP</span></h3></div>
+        <div class="col-md-6 col-lg-3 reveal rd1"><div class="card-o" style="padding:1.5rem;text-align:center;"><div class="card-icon" style="margin:0 auto 1.2rem;border-radius:10px;"><i class="bi bi-calendar-check-fill"></i></div><h4 style="font-size:1rem;">Book a Consultation</h4><p style="font-size:.8rem;">Schedule a 1-on-1 strategy session with our experts.</p></div></div>
+        <div class="col-md-6 col-lg-3 reveal rd2"><div class="card-o" style="padding:1.5rem;text-align:center;"><div class="card-icon" style="margin:0 auto 1.2rem;border-radius:10px;"><i class="bi bi-telephone-inbound-fill"></i></div><h4 style="font-size:1rem;">Free Strategy Call</h4><p style="font-size:.8rem;">15-minute complimentary call to explore your options.</p></div></div>
+        <div class="col-md-6 col-lg-3 reveal rd3"><div class="card-o" style="padding:1.5rem;text-align:center;"><div class="card-icon" style="margin:0 auto 1.2rem;border-radius:10px;"><i class="bi bi-book-fill"></i></div><h4 style="font-size:1rem;">Enroll Now</h4><p style="font-size:.8rem;">For courses — Chess, Music, Language, IELTS, and more.</p></div></div>
+        <div class="col-md-6 col-lg-3 reveal rd4"><div class="card-o" style="padding:1.5rem;text-align:center;"><div class="card-icon" style="margin:0 auto 1.2rem;border-radius:10px;"><i class="bi bi-handshake-fill"></i></div><h4 style="font-size:1rem;">Partner With Us</h4><p style="font-size:.8rem;">Institutional partnerships and collaborative programs.</p></div></div>
+      </div>
+    </div>
+  </section>
+</div><!-- /contactPage -->
+
+
+<!-- ===== FOOTER ===== -->
+<footer id="siteFooter">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <div class="footer-brand">PRISA <span>BIZTECH</span></div>
+        <p class="footer-desc">Transforming brands, empowering education, and driving growth through AI-powered, result-driven strategies.</p>
+        <div class="soc-row mt-3">
+          <a href="#" class="soc-btn" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="soc-btn" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="soc-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="soc-btn" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+          <a href="#" class="soc-btn" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="footer-h">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('about')">About Us</a></li>
+          <li><a href="#" onclick="showPage('services')">Services</a></li>
+          <li><a href="#" onclick="showPage('education')">Education</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="footer-h">Services</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('services')">Healthcare</a></li>
+          <li><a href="#" onclick="showPage('services')">Commercial</a></li>
+          <li><a href="#" onclick="showPage('services')">Personal Branding</a></li>
+          <li><a href="#" onclick="showPage('services')">Educational</a></li>
+          <li><a href="#" onclick="showPage('services')">Abroad Classes</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <div class="footer-h">Contact Info</div>
+        <div class="footer-ci"><i class="bi bi-geo-alt-fill"></i><span>Tiruchengode &amp; Salem, Tamil Nadu, India</span></div>
+        <div class="footer-ci"><i class="bi bi-telephone-fill"></i><span><a href="tel:+91XXXXXXXXXX" style="color:inherit;text-decoration:none;">+91 XXXXX XXXXX</a></span></div>
+        <div class="footer-ci"><i class="bi bi-envelope-fill"></i><span><a href="mailto:yourmail@gmail.com" style="color:inherit;text-decoration:none;">yourmail@gmail.com</a></span></div>
+      </div>
+    </div>
+    <hr class="footer-div" />
+    <div class="footer-bot">
+      <span>© 2025 Prisa Biztech Solutions. All rights reserved.</span>
+      <span>From Manual to Automated · Built for Growth</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div id="toast"><i class="bi bi-check-circle-fill" style="color:var(--orange)"></i> Message sent! We'll get back to you soon.</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* CURSOR */
+const dot = document.getElementById('cur-dot');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function anim(){
+  dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;
+  rx+=(mx-rx)*.11; ry+=(my-ry)*.11;
+  ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(anim);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.opacity='1';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='34px';ring.style.height='34px';ring.style.opacity='.55';});
+});
+
+/* NAVBAR */
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>60);
+  const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  document.getElementById('scrollBar').style.width=pct+'%';
+  const btn=document.getElementById('backToTop');
+  if(window.scrollY>400){btn.classList.add('visible');}else{btn.classList.remove('visible');}
+});
+
+/* MOBILE MENU */
+function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+/* PAGES */
+function showPage(name){
+  const map={home:'homePage',about:'aboutPage',services:'servicesPage',education:'educationPage',contact:'contactPage'};
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(map[name]).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(initReveal,80);
+  // Active nav link
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.remove('active');
+    const fn = a.getAttribute('onclick')||'';
+    if(fn.includes("'"+name+"'")){a.classList.add('active');}
+  });
+}
+
+// Set Home as active by default
+(function(){
+  const homeLink = document.querySelector('.nav-links a[onclick*="home"]');
+  if(homeLink) homeLink.classList.add('active');
+})();
+
+/* SCROLL REVEAL */
+function initReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  },{threshold:.1});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
+}
+initReveal();
+
+/* COUNTER */
+function runCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target=parseInt(el.dataset.count);
+    let cur=0; const step=target/60;
+    const t=setInterval(()=>{
+      cur+=step;
+      if(cur>=target){el.textContent=target+'+';clearInterval(t);}
+      else el.textContent=Math.floor(cur)+'+';
+    },16);
+  });
+}
+setTimeout(runCounters,1400);
+
+/* FAQ TOGGLE */
+function toggleFaq(btn){
+  const answer = btn.nextElementSibling;
+  const isOpen = btn.getAttribute('aria-expanded') === 'true';
+  // Close all
+  document.querySelectorAll('.faq-q').forEach(b=>{
+    b.setAttribute('aria-expanded','false');
+    b.nextElementSibling.classList.remove('open');
+  });
+  // Open this one if it was closed
+  if(!isOpen){
+    btn.setAttribute('aria-expanded','true');
+    answer.classList.add('open');
+  }
+}
+
+/* FORM SUBMIT */
+function handleSubmit(e){
+  e.preventDefault();
+  const t=document.getElementById('toast');
+  t.style.transform='translateX(-50%) translateY(0)';
+  setTimeout(()=>t.style.transform='translateX(-50%) translateY(100px)',3500);
+}
+</script>
+<!-- Three.js for 3D AI Head -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ===== 3D AI HEAD RENDERER ===== */
+(function() {
+  const canvas = document.getElementById('aiCanvas');
+  if (!canvas) return;
+
+  const W = 480, H = 580;
+  canvas.width = W; canvas.height = H;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 100);
+  camera.position.set(0, 0, 5.5);
+
+  /* --- Load the AI head image as a texture projected onto geometry --- */
+  const loader = new THREE.TextureLoader();
+  const tex = loader.load('ai-head.jpg');
+
+  /* --- Background plane with the image --- */
+  const bgGeo = new THREE.PlaneGeometry(3.8, 4.6);
+  const bgMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 1 });
+  const bgMesh = new THREE.Mesh(bgGeo, bgMat);
+  bgMesh.position.z = -0.5;
+  scene.add(bgMesh);
+
+  /* --- Wireframe sphere that floats over the face area (tech overlay) --- */
+  const sphereGeo = new THREE.SphereGeometry(1.05, 18, 14);
+  const wireMat = new THREE.MeshBasicMaterial({
+    color: 0xE8600A,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.12
+  });
+  const wireSphere = new THREE.Mesh(sphereGeo, wireMat);
+  wireSphere.position.set(0, 0.15, 0.3);
+  scene.add(wireSphere);
+
+  /* --- Second outer wireframe ring (slightly larger, slower) --- */
+  const outerGeo = new THREE.SphereGeometry(1.28, 14, 10);
+  const outerMat = new THREE.MeshBasicMaterial({
+    color: 0xFF7A2A,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.05
+  });
+  const outerSphere = new THREE.Mesh(outerGeo, outerMat);
+  outerSphere.position.set(0, 0.15, 0.3);
+  scene.add(outerSphere);
+
+  /* --- Floating particles ring (orbit dots) --- */
+  const particleCount = 80;
+  const pGeo = new THREE.BufferGeometry();
+  const positions = new Float32Array(particleCount * 3);
+  for (let i = 0; i < particleCount; i++) {
+    const angle = (i / particleCount) * Math.PI * 2;
+    const radius = 1.55 + Math.random() * 0.3;
+    const spread = (Math.random() - 0.5) * 0.6;
+    positions[i * 3]     = Math.cos(angle) * radius;
+    positions[i * 3 + 1] = spread + 0.15;
+    positions[i * 3 + 2] = Math.sin(angle) * radius * 0.35;
+  }
+  pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const pMat = new THREE.PointsMaterial({ color: 0xE8600A, size: 0.04, transparent: true, opacity: 0.7 });
+  const particles = new THREE.Points(pGeo, pMat);
+  scene.add(particles);
+
+  /* --- Horizontal scan plane (like a holographic scanner) --- */
+  const scanGeo = new THREE.PlaneGeometry(3.5, 0.006);
+  const scanMat = new THREE.MeshBasicMaterial({
+    color: 0xFF7A2A,
+    transparent: true,
+    opacity: 0.6,
+    side: THREE.DoubleSide
+  });
+  const scanLine = new THREE.Mesh(scanGeo, scanMat);
+  scanLine.position.set(0, 1.6, 0.5);
+  scene.add(scanLine);
+
+  /* --- Orange glow plane behind head (emissive fill) --- */
+  const glowGeo = new THREE.PlaneGeometry(2.5, 2.5);
+  const glowMat = new THREE.MeshBasicMaterial({
+    color: 0xE8600A,
+    transparent: true,
+    opacity: 0.07
+  });
+  const glow = new THREE.Mesh(glowGeo, glowMat);
+  glow.position.set(0, 0.2, -0.2);
+  scene.add(glow);
+
+  /* --- Mouse interaction --- */
+  let targetRotX = 0, targetRotY = 0;
+  let currentRotX = 0, currentRotY = 0;
+  const wrap = document.getElementById('aiHeadWrap');
+
+  document.addEventListener('mousemove', (e) => {
+    if (!wrap) return;
+    const rect = wrap.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    // Only respond when mouse is near the canvas area (within 500px)
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
+    if (Math.abs(dx) < 600 && Math.abs(dy) < 600) {
+      targetRotY = (dx / window.innerWidth) * 0.45;
+      targetRotX = -(dy / window.innerHeight) * 0.35;
+    }
+  });
+
+  /* --- Animation loop --- */
+  let t = 0;
+  let scanDir = -1;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    t += 0.012;
+
+    // Smooth mouse-follow rotation
+    currentRotX += (targetRotX - currentRotX) * 0.05;
+    currentRotY += (targetRotY - currentRotY) * 0.05;
+
+    // Apply rotation to wireframe sphere (head follows mouse)
+    wireSphere.rotation.x = currentRotX * 0.6;
+    wireSphere.rotation.y = t * 0.18 + currentRotY;
+    outerSphere.rotation.x = -t * 0.08;
+    outerSphere.rotation.y = -t * 0.12 + currentRotY * 0.5;
+
+    // Particle ring orbit
+    particles.rotation.y = t * 0.22;
+    particles.rotation.x = currentRotX * 0.3;
+
+    // Background tilt (subtle parallax)
+    bgMesh.rotation.x = currentRotX * 0.06;
+    bgMesh.rotation.y = currentRotY * 0.08;
+
+    // Glow pulse
+    glow.material.opacity = 0.05 + Math.sin(t * 1.5) * 0.04;
+
+    // Scan line sweep
+    scanLine.position.y += scanDir * 0.025;
+    if (scanLine.position.y < -1.8) scanDir = 1;
+    if (scanLine.position.y > 1.8) scanDir = -1;
+    scanLine.material.opacity = 0.4 + Math.abs(Math.sin(t * 3)) * 0.4;
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  /* Resize handler */
+  window.addEventListener('resize', () => {
+    const w = canvas.parentElement ? canvas.parentElement.offsetWidth : W;
+    // keep aspect ratio, don't change internal resolution
+    canvas.style.width = '100%';
+  });
+})();
+</script>
+
+</body>
+</html>
